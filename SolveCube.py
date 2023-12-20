@@ -1,6 +1,6 @@
 import optimal.solver as sv
 
-cubestring = 'LBURUDDFBRBFURUBLBFLURFFDLLLUUDDDBDRUBRBLFDRFRUFRBLDFL'
+cubestring = 'LBURUDDFBRBFURUBLBFLURFFDLLLUUDDDBDsRUBRBLFDRFRUFRBLDFL'
 
 def convertToMotorCrtl(input_string):
     motor_mapping = {'F': '1', 'R': '2', 'B': '3', 'L': '4', 'U': '5', 'D': '6'}
