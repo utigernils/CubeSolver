@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="90bdc4ed-3ad7-4300-bf66-cb99a889dcae" name="Changes" comment="" />
+    <list default="true" id="90bdc4ed-3ad7-4300-bf66-cb99a889dcae" name="Changes" comment="Datenstruktur erstellt">
+      <change beforePath="$PROJECT_DIR$/ReadCube.py" beforeDir="false" afterPath="$PROJECT_DIR$/ReadCube.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -14,10 +24,14 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2ZnnqraOPsMdgQxYgDxKo5cIyxS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -26,9 +40,14 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/nils/PycharmProjects/CubeSolver",
     "settings.editor.selected.configurable": "preferences.lookFeel"
   },
   "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory"
+    ],
     "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
       "Python"
     ]
@@ -43,6 +62,27 @@
       <option name="presentableId" value="Default" />
       <updated>1703066904604</updated>
     </task>
+    <task id="LOCAL-00001" summary="Datenstruktur erstellt">
+      <option name="closed" value="true" />
+      <created>1703067790867</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1703067790867</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Datenstruktur erstellt">
+      <option name="closed" value="true" />
+      <created>1703067870343</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1703067870343</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Datenstruktur erstellt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Datenstruktur erstellt" />
   </component>
 </project>
