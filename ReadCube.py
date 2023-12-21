@@ -1,10 +1,11 @@
-import cv2
+import cv2 as cv2
 import numpy as np
 
-cap = cv2.VideoCapture(1)
+
+cap = cv2.VideoCapture(0)
 min_contour_area = 500
 
-while True:
+def ReadCube():
     ret, frame = cap.read()
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
@@ -52,8 +53,13 @@ while True:
     cv2.setWindowProperty('Colored Rectangles', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
     cv2.imshow('Colored Rectangles', frame)
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
 
-cap.release()
-cv2.destroyAllWindows()
+def CheckCube():
+    #fake return
+    return False
+
+def destroyReadCube():
+    cap.release()
+    cv2.destroyAllWindows()
+
+
