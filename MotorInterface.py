@@ -1,4 +1,4 @@
-def TurnMotor(id, acc, speed, deg):
+def Turn(id, acc, speed, deg):
     output_string = "FA 0" + str(id) + " FD "
 
     processed_string = hex(speed)[2:].zfill(4)
@@ -14,3 +14,10 @@ def TurnMotor(id, acc, speed, deg):
     output_string += deg_hex
 
     return output_string.upper()
+
+def Solve(solvestring, speed):
+    Turn(id, acc, speed, deg)
+def SelfTest():
+    #motor response test here !!
+def SelfCalibrate():
+    #motor calibration here !!

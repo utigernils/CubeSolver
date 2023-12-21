@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90bdc4ed-3ad7-4300-bf66-cb99a889dcae" name="Changes" comment="anderer cubestring">
-      <change afterPath="$PROJECT_DIR$/MachineInterface.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MotorInterface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="90bdc4ed-3ad7-4300-bf66-cb99a889dcae" name="Changes" comment="anpassung read cube">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenerateMotorControls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MachineInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/MachineInterface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MotorInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/MotorInterface.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReadCube.py" beforeDir="false" afterPath="$PROJECT_DIR$/ReadCube.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SolveCube.py" beforeDir="false" afterPath="$PROJECT_DIR$/SolveCube.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,7 +120,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703072898021</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="anpassung read cube">
+      <option name="closed" value="true" />
+      <created>1703165165678</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1703165165678</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -145,6 +150,7 @@
     <MESSAGE value="Datenstruktur erstellt" />
     <MESSAGE value="reinkopieren des alten codes" />
     <MESSAGE value="Generated the solve tabels and rearanged code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Generated the solve tabels and rearanged code" />
+    <MESSAGE value="anpassung read cube" />
+    <option name="LAST_COMMIT_MESSAGE" value="anpassung read cube" />
   </component>
 </project>
