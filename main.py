@@ -30,11 +30,6 @@ def StartSolve():
 
 
 
-@eel.expose
-def button_click():
-    print("Button Clicked!")
-
-
 eel.start('index.html', size=initial_window_size, port=8000, mode='chrome', root=web_folder)
 
 

@@ -225,6 +225,9 @@ def ReadCube():
     #fake return
     return "BLRBUDDLBUFULRUURBBDLDFBDLLLUFUDFRURRRLDLBFRFFFUBBRDFD"
 
+def DisplayMask():
+
+
 def CheckCube():
     #fake return
     return True

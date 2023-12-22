@@ -18,43 +18,90 @@
     </div>
     <div class="main">  
         <div class="contenBox">
-            <h1>Hier steht etwas</h1>
+            <h1>Lösen</h1>
             <div class="info">
-                <p>Hier steht etwas kleineres</p>
+                <p>Autostart ist deaktiviert</p>
+                
+            </div>
+            <div class="info">
+                <p>Es wurde kein Würfel erkannt</p>
+                
             </div>
             <div class="selectors">
-                <button class="button">wähle mich aus</button>
-                <button class="button">oder mich</button>
+                <button class="button">Autostart ein</button>
+                <button class="button">Autostart aus</button>
+                <button class="button">Lösen</button>
             </div>
         </div>
         <div class="contenBox">
-            <h1>Hier steht etwas</h1>
+            <h1 id="status-display">Status - Nicht verbunden</h1>
             <div class="info">
-                <p>Hier steht etwas kleineres</p>
+                <div class="atribute"> 
+                    <p>Motor 1:</p>
+                    <p id="deg-mot1">0.0 Deg</p>
+                    <button class="state-red" id="state-mot1"></button>
+                </div>
+                <div class="atribute"> 
+                    <p>Motor 2:</p>
+                    <p id="deg-mot2">0.0 Deg</p>
+                    <button class="state-red" id="state-mot2"></button>
+                </div>
+                <div class="atribute"> 
+                    <p>Motor 3:</p>
+                    <p  id="deg-mot3">0.0 Deg</p>
+                    <button class="state-red" id="state-mot3"></button>
+                </div>
+                <div class="atribute"> 
+                    <p>Motor 4:</p>
+                    <p id="deg-mot4">0.0 Deg</p>
+                    <button class="state-red" id="state-mot4"></button>
+                </div>
+                <div class="atribute"> 
+                    <p>Motor 5:</p>
+                    <p id="deg-mot5">0.0 Deg</p>
+                    <button class="state-red" id="state-mot5"></button>
+                </div>
+                <div class="atribute"> 
+                    <p>Motor 6:</p>
+                    <p id="deg-mot6">0.0 Deg</p>
+                    <button class="state-red" id="state-mot6"></button>
+                </div>
+            </div>
+            <div class="info">
+                <div class="atribute"> 
+                    <p>Kamera 1:</p>
+                    <button class="state-red" id="state-cam1"></button>
+                </div>
+                <div class="atribute"> 
+                    <p>Kamera 2:</p>
+                    <button class="state-red" id="state-cam2"></button>
+                </div>
+                <div class="atribute"> 
+                    <p>Beleuchtung:</p>
+                    <button class="state-red" id="state-lights"></button>
+                </div>
             </div>
             <div class="selectors">
-                <button class="button">wähle mich aus</button>
-                <button class="button">oder mich</button>
             </div>
         </div>
         <div class="contenBox">
-            <h1>Hier steht etwas</h1>
+            <h1>Selbsttest</h1>
             <div class="info">
-                <p>Hier steht etwas kleineres</p>
+                <p>Klicke hier einen Selbsttest durchzuführen</p>
+                <p id="selftest-state">Letzter Selbsttest: -</p>
             </div>
             <div class="selectors">
-                <button class="button">wähle mich aus</button>
-                <button class="button">oder mich</button>
+                <button class="button">Selbsttest starten</button>
             </div>
         </div>
         <div class="contenBox">
-            <h1>Hier steht etwas</h1>
+            <h1>Kalibration</h1>
             <div class="info">
-                <p>Hier steht etwas kleineres</p>
+                <p>Klicke hier um alle Motoren zu kalibrieren</p>
+                <p id="calibration-state">Letzte kalibrierung: -</p>
             </div>
             <div class="selectors">
-                <button class="button">wähle mich aus</button>
-                <button class="button">oder mich</button>
+                <button class="button">Motoren kalibrieren</button>
             </div>
         </div>
     </div>
