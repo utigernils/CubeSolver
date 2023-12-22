@@ -19,5 +19,7 @@ def Solve(solvestring, speed):
     Turn(id, acc, speed, deg)
 def SelfTest():
     #motor response test here !!
+    print("Running: Motor Selftest")
 def SelfCalibrate():
     #motor calibration here !!
+    print("Running: Motor Selfcalibration")
