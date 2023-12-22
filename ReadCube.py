@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import base64
 
 cap = cv2.VideoCapture(1)
 min_contour_area = 400
@@ -224,9 +225,6 @@ def ReadCube():
 
     #fake return
     return "BLRBUDDLBUFULRUURBBDLDFBDLLLUFUDFRURRRLDLBFRFFFUBBRDFD"
-
-def DisplayMask():
-
 
 def CheckCube():
     #fake return

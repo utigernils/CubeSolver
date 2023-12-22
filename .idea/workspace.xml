@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90bdc4ed-3ad7-4300-bf66-cb99a889dcae" name="Changes" comment="built skeleton of the UI">
+    <list default="true" id="90bdc4ed-3ad7-4300-bf66-cb99a889dcae" name="Changes" comment="Ui finished">
+      <change afterPath="$PROJECT_DIR$/testStreamPer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReadCube.py" beforeDir="false" afterPath="$PROJECT_DIR$/ReadCube.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/gateway.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/gateway.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +24,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -73,6 +73,11 @@
     ]
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\nils\PycharmProjects\CubeSolver" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -146,7 +151,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703235090037</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Ui finished">
+      <option name="closed" value="true" />
+      <created>1703257006950</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1703257006950</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -171,6 +184,7 @@
     <MESSAGE value="anpassung read cube" />
     <MESSAGE value="adding multuple functions like selfcheck" />
     <MESSAGE value="built skeleton of the UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="built skeleton of the UI" />
+    <MESSAGE value="Ui finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ui finished" />
   </component>
 </project>

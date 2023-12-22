@@ -28,9 +28,6 @@ def StartSolve():
     Motor.Solve(solvestring, solvingSpeed)
     Idle()
 
-
-
 eel.start('index.html', size=initial_window_size, port=8000, mode='chrome', root=web_folder)
-
 
 
