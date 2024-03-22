@@ -24,7 +24,6 @@ def enable(motor_addres, state):
 
     sendHex(serial_port, 'FA' + motor_addres + 'F3' + state)
 
-
 def move(addr, dir, speed, acc, pulses):
     speed_byte4 = format(speed & 0xFF, '02X')
     speed_byte5 = format((speed >> 8) & 0xFF, '01X')

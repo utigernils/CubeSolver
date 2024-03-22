@@ -20,17 +20,11 @@
         <div class="contenBox">
             <h1>Lösen</h1>
             <div class="info">
-                <p>Autostart ist deaktiviert</p>
-                
-            </div>
-            <div class="info">
-                <p>Es wurde kein Würfel erkannt</p>
-                
+                <p>Klicke hier um einen Würfel zu lösen</p>
+                <p id="solve-state">Letzte lösung: -</p>
             </div>
             <div class="selectors">
-                <button id="AutostartOn" class="button">Autostart ein</button>
-                <button id="AutostartOff" class="button">Autostart aus</button>
-                <button id="Solve" class="button">Lösen</button>
+                <button id="Solve" class="button">Lösung starten</button>
             </div>
         </div>
         <div class="contenBox">
@@ -101,6 +95,8 @@
                 <p id="calibration-state">Letzte kalibrierung: -</p>
             </div>
             <div class="selectors">
+                <button id="Enable" class="button">Motoren ein</button>
+                <button id="Disable" class="button">Motoren aus</button>
                 <button id="Calibration" class="button">Motoren kalibrieren</button>
             </div>
         </div>

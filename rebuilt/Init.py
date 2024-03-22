@@ -5,13 +5,17 @@ app.web_folder = '../web'
 app.initial_window_size = (1200, 800)
 app.thread_running = False
 
-app.MotorCom = "COM5"
+app.motor.serial_port = "COM5"
 app.MachineCom = "COM2"
 app.cube.activeCamera = "camera1"
 app.CheckRate = "1"
 
+app.machineBusy = False
+
 app.selftestState = "Noch kein Selbsttest durchgeführt."
 app.calibrationState = "Noch keine Kalibration durchgeführt."
+app.machineState = "Status - Nicht verbunden"
+app.solveState = "Noch keine Lösung durchgeführt."
 
 app.standard_IdleColor = "rgb(20, 100, 255)"
 app.standard_ScanColor = "rgb(255, 255, 255)"
@@ -56,8 +60,6 @@ app.lower_green = np.array([32, 33, 33])
 app.upper_green = np.array([86, 175, 153])
 app.lower_yellow = np.array([17, 136, 137])
 app.upper_yellow = np.array([90, 216, 203])
-
-app.motor.serial_port = app.MotorCom
 
 app.cube.lower_red = np.array([0, 93, 50])
 app.cube.upper_red = np.array([8, 209, 153])

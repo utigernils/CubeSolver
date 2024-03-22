@@ -15,15 +15,17 @@ document.addEventListener("DOMContentLoaded", function() {
     const AutostartOn_btn = document.getElementById("AutostartOn");
     const AutostartOff_btn = document.getElementById("AutostartOff");
     const Solve_btn = document.getElementById("Solve");
+    const enable_btn = document.getElementById("Enable");
+    const disbale_btn = document.getElementById("Disable");
     const SelfTest_btn = document.getElementById("SelfTest");
     const Calibration_btn = document.getElementById("Calibration");
 
-    AutostartOn_btn.addEventListener("click", function() {
-        eel.home_AutostartOn_btn();
+    enable_btn.addEventListener("click", function() {
+        eel.home_Enable_btn();
     });
 
-    AutostartOff_btn.addEventListener("click", function() {
-        eel.home_AutostartOff_btn();
+    disbale_btn.addEventListener("click", function() {
+        eel.home_Disable_btn();
     });
 
     Solve_btn.addEventListener("click", function() {

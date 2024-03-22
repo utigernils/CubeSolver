@@ -5,61 +5,83 @@ import datetime
 import threading
 
 import CubeScanner as cube
-import SolveCalculator as solve
 import MotorInterface as motor
+import SolveCalculator as solver
 
 filename = "Main.py"
 
 #Machine actions
 def solveCube():
-    eel.UserInfo("Würfel wird gelesen und berechnet. Bitte Seite nicht verlassen!")
+    global machineBusy
+    global machineState
+    global solveState
 
-    colorArray1 = ''.join(cube.scan("camera1"))
-    colorArray2 = ''.join(cube.scan("camera2"))
+    if machineState == "Status - Nicht verbunden" and machineBusy == False:
+        eel.UserInfo("Die Maschine ist nicht verbunden oder gerade beschäftigt!")
+    else:
+        machineBusy == True
+        machineState = "Status - verbunden (lösen)"
+        solveState = "Lesen des Würfels"
 
-    cubestring = colorArray1 + colorArray2
-    #solvestring = sc.SolveCube(cubestring)
+        colorArray1 = ''.join(cube.scan("camera1"))
+        colorArray2 = ''.join(cube.scan("camera2"))
 
-    solvestring = 'U3 R2 B2 U2 B3 D3 L1 D1 L2 U2 D2 R3 U1 D1 R3 D1 B3 U1 (18f*)'
+        cubestring = colorArray1 + colorArray2
 
-    print(filename + ": generatet solve: " + solvestring)
+        solveState = "Berechnen der Lösungsschritte"
 
-    solve = solvestring.split(" (")[0].split()
+        solvestring = solver.calculate(cubestring)
 
-    for instruction in solve:
-        print(instruction)
+        print(filename + ": generatet solve: " + solvestring)
 
-        motorAdress = re.split(r'\d+', instruction)[0]
-        motorMove = instruction.split(motorAdress)[1]
+        solve = solvestring.split(" (")[0].split()
 
-        match motorAdress:
-            case 'D':
-                motorAdress = 1
-            case 'L':
-                motorAdress = 2
-            case 'B':
-                motorAdress = 3
-            case 'R':
-                motorAdress = 4
-            case 'F':
-                motorAdress = 5
-            case 'U':
-                motorAdress = 6
+        solveState = "Lösen !"
+        for instruction in solve:
+            print(instruction)
 
-        match int(motorMove):
-            case 1:
-                motor.move(motorAdress, 1, 3000, 254, 800)
-            case 2:
-                motor.move(motorAdress, 1, 3000, 254, 1600)
-            case 3:
-                motor.move(motorAdress, 0, 3000, 254, 800)
+            motorAdress = re.split(r'\d+', instruction)[0]
+            motorMove = instruction.split(motorAdress)[1]
 
-        time.sleep(0.2)
+            match motorAdress:
+                case 'D':
+                    motorAdress = 1
+                case 'L':
+                    motorAdress = 2
+                case 'B':
+                    motorAdress = 3
+                case 'R':
+                    motorAdress = 4
+                case 'F':
+                    motorAdress = 5
+                case 'U':
+                    motorAdress = 6
 
-    print('Solve DONE!')
+            match int(motorMove):
+                case 1:
+                    motor.move(motorAdress, 1, 3000, 254, 800)
+                case 2:
+                    motor.move(motorAdress, 1, 3000, 254, 1600)
+                case 3:
+                    motor.move(motorAdress, 0, 3000, 254, 800)
+
+            time.sleep(0.2)
+
+        print('Solve DONE!')
+        solveState = "Lösung abgeschlossen"
+        machineBusy == False
 
 def motorTest():
-    try:
+    global machineBusy
+    global machineState
+
+    if machineState == "Status - Nicht verbunden" and machineBusy == False:
+        eel.UserInfo("Die Maschine ist nicht verbunden oder gerade beschäftigt!")
+        raise Exception("Die Maschine ist nicht verbunden oder gerade beschäftigt!")
+    else:
+        machineBusy = True
+        machineState = "Status - verbunden (Selbsttest)"
+
         motor.enable('00', True)
         time.sleep(1)
 
@@ -107,19 +129,41 @@ def motorTest():
 
             time.sleep(1)
             motor.enable('00', False)
-    except:
-        print("MotorInterface: Invalid com Port")
-        eel.UserInfo("MotorInterface Error: Wrong com Port")
+
+        machineBusy == False
 
 def motorCalibration():
-    motor.calibrate('00')
+    global machineBusy
+    global machineState
+    if machineState == "Status - Nicht verbunden" and machineBusy == False:
+        eel.UserInfo("Die Maschine ist nicht verbunden oder gerade beschäftigt!")
+        raise Exception("Die Maschine ist nicht verbunden oder gerade beschäftigt!")
+    else:
+        machineBusy == True
+        machineState = "Status - verbunden (Kalibrierung)"
+        motor.calibrate('00')
+        time.sleep(5)
+        machineBusy == False
 
 #Thread routines
 def dashboardThread():
+    global machineState
+    global machineBusy
+
     while thread_running:
         print(filename + ": getting Machine state")
         eel.UpdateText('selftest-state', selftestState)
         eel.UpdateText('calibration-state', calibrationState)
+        eel.UpdateText('solve-state', solveState)
+
+        if machineBusy == False:
+            try:
+                motor.sendHex(motor.serial_port, "00")
+                machineState = "Status - verbunden"
+            except:
+                machineState = "Status - Nicht verbunden"
+
+        eel.UpdateText('status-display', machineState)
         time.sleep(float(CheckRate))
 
 def cameraThread():
@@ -175,31 +219,50 @@ def home_AutostartOff_btn():
 
 @eel.expose
 def home_Solve_btn():
+    global solveState
     print(filename + ": 'home_Solve' pressed.")
     solveCube()
+    solveState = 'Letzte Lösung: ' + datetime.datetime.now().strftime('%H:%M')
 
 @eel.expose
 def home_SelfTest_btn():
     global selftestState
+    global machineBusy
+
     print(filename + ": 'home_SelfTest' pressed.")
 
     selftestState = "Selbsttest läuft..."
 
-    motorTest()
-
-    selftestState = 'Letzter Selbsttest: ' + datetime.datetime.now().strftime('%H:%M')
+    try:
+        motorTest()
+        selftestState = 'Letzter Selbsttest: ' + datetime.datetime.now().strftime('%H:%M')
+    except:
+        selftestState = 'Letzte Kalibration: felgeschlagen'
+        machineBusy = False
 
 @eel.expose
 def home_Calibration_btn():
     global calibrationState
+    global machineBusy
+
     print(filename + ": 'home_Calibration' pressed.")
 
     calibrationState = "Kalibration läuft..."
 
-    motorCalibration()
-    time.sleep(5)
+    try:
+        motorCalibration()
+        calibrationState = 'Letzte Kalibration: ' + datetime.datetime.now().strftime('%H:%M')
+    except:
+        calibrationState = 'Letzte Kalibration: felgeschlagen'
+        machineBusy = False
 
-    calibrationState = 'Letzte Kalibration: ' + datetime.datetime.now().strftime('%H:%M')
+@eel.expose
+def home_Enable_btn():
+    motor.enable('00', True)
+
+@eel.expose
+def home_Disable_btn():
+    motor.enable('00', False)
 
 #Camera
 @eel.expose
@@ -421,15 +484,13 @@ def lights_ColorDone_color(value):
 #Settings
 @eel.expose
 def settings_loaded():
-    eel.set_settings_MotorCom_select(MotorCom)
+    eel.set_settings_MotorCom_select(motor.serial_port)
     eel.set_settings_MachineCom_select(MachineCom)
     eel.set_settings_CheckRate_select(CheckRate)
     print(filename + ": 'settings' loaded.")
 
 @eel.expose
 def settings_MotorCom_select(value):
-    global MotorCom
-    MotorCom = value
     motor.serial_port = value
     print(filename + ": 'settings_MotorCom' selected '" + value + "'.")
 
