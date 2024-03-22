@@ -2,21 +2,12 @@ import cv2
 import base64
 import numpy as np
 
+filename = "CubeScanner.py"
+
 camera1 = cv2.VideoCapture(1)
 camera2 = cv2.VideoCapture(2)
 
-lower_red = np.array([0, 93, 50])
-upper_red = np.array([8, 209, 153])
-lower_blue = np.array([78, 99, 76])
-upper_blue = np.array([146, 176, 162])
-lower_orange = np.array([6, 99, 133])
-upper_orange = np.array([12, 194, 187])
-lower_green = np.array([32, 33, 33])
-upper_green = np.array([86, 175, 153])
-lower_yellow = np.array([17, 136, 137])
-upper_yellow = np.array([90, 216, 203])
-
-def UpdateMasks(new_lower_red, new_upper_red, new_lower_blue, new_upper_blue, new_lower_orange, new_upper_orange, new_lower_green, new_upper_green, new_lower_yellow, new_upper_yellow):
+def updateMasks(new_lower_red, new_upper_red, new_lower_blue, new_upper_blue, new_lower_orange, new_upper_orange, new_lower_green, new_upper_green, new_lower_yellow, new_upper_yellow):
     global lower_red
     global upper_red
     global lower_blue
@@ -39,23 +30,22 @@ def UpdateMasks(new_lower_red, new_upper_red, new_lower_blue, new_upper_blue, ne
     lower_yellow = new_lower_yellow
     upper_yellow = new_upper_yellow
 
-    print("CubeScanner.py: lower_red-" + str(lower_red))
-    print("CubeScanner.py: upper_red-" + str(upper_red))
-    print("CubeScanner.py: lower_blue-" + str(lower_blue))
-    print("CubeScanner.py: upper_blue-" + str(upper_blue))
-    print("CubeScanner.py: lower_orange-" + str(lower_orange))
-    print("CubeScanner.py: upper_orange-" + str(upper_orange))
-    print("CubeScanner.py: lower_green-" + str(lower_green))
-    print("CubeScanner.py: upper_green-" + str(upper_green))
-    print("CubeScanner.py: lower_yellow-" + str(lower_yellow))
-    print("CubeScanner.py: upper_yellow-" + str(upper_yellow))
-
+    print(filename + ": lower_red-" + str(lower_red))
+    print(filename + ": upper_red-" + str(upper_red))
+    print(filename + ": lower_blue-" + str(lower_blue))
+    print(filename + ": upper_blue-" + str(upper_blue))
+    print(filename + ": lower_orange-" + str(lower_orange))
+    print(filename + ": upper_orange-" + str(upper_orange))
+    print(filename + ": lower_green-" + str(lower_green))
+    print(filename + ": upper_green-" + str(upper_green))
+    print(filename + ": lower_yellow-" + str(lower_yellow))
+    print(filename + ": upper_yellow-" + str(upper_yellow))
 
 def getCapturedFrame(camera):
     ret, frame = camera.read()
     return frame
 
-def MaskFrame(upper, lower, frame):
+def maskFrame(upper, lower, frame):
     hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     mask = cv2.inRange(hsv_frame, lower, upper)
@@ -71,48 +61,47 @@ def encodeFrame(frame):
 
 def getMaskedFrame(upper, lower, camera):
     frame = getCapturedFrame(globals()[camera])
-    frame = MaskFrame(upper, lower, frame)
+    frame = maskFrame(upper, lower, frame)
     return encodeFrame(frame)
 
-def ScanCube(camera):
-    frame = getCapturedFrame(globals()[camera])
-    red_mask = MaskFrame(upper_red, lower_red, frame)
-    blue_mask = MaskFrame(upper_blue, lower_blue, frame)
-    orange_mask = MaskFrame(upper_orange, lower_orange, frame)
-    green_mask = MaskFrame(upper_green, lower_green, frame)
-    yellow_mask = MaskFrame(upper_yellow, lower_yellow, frame)
+def scan(camera):
+    if False:
+        frame = getCapturedFrame(globals()[camera])
+        red_mask = maskFrame(upper_red, lower_red, frame)
+        blue_mask = maskFrame(upper_blue, lower_blue, frame)
+        orange_mask = maskFrame(upper_orange, lower_orange, frame)
+        green_mask = maskFrame(upper_green, lower_green, frame)
+        yellow_mask = maskFrame(upper_yellow, lower_yellow, frame)
+        colors_under_circles = []
+        circle_centers = [
+            (100, 100), (250, 100), (400, 100),
+            (100, 250), (250, 250), (400, 250),
+            (100, 400), (250, 400), (400, 400)
+        ]
 
-    colors_under_circles = []
+        for circle_center in circle_centers:
+            if np.any(red_mask[circle_center[1], circle_center[0]] != 0):
+                colors_under_circles.append("F")
+                color = (0, 0, 255)
+            elif np.any(blue_mask[circle_center[1], circle_center[0]] != 0):
+                colors_under_circles.append("L")
+                color = (255, 0, 0)
+            elif np.any(orange_mask[circle_center[1], circle_center[0]] != 0):
+                colors_under_circles.append("B")
+                color = (0, 165, 255)
+            elif np.any(green_mask[circle_center[1], circle_center[0]] != 0):
+                colors_under_circles.append("R")
+                color = (0, 255, 0)
+            elif np.any(yellow_mask[circle_center[1], circle_center[0]] != 0):
+                colors_under_circles.append("U")
+                color = (0, 255, 255)
+            else:
+                colors_under_circles.append("D")
+                color = (255, 255, 255)
 
-    circle_centers = [
+            cv2.circle(frame, circle_center, 10, color, -1)
 
-        (100, 100), (250, 100), (400, 100),
-        (100, 250), (250, 250), (400, 250),
-        (100, 400), (250, 400), (400, 400)
-
-    ]
-
-    for circle_center in circle_centers:
-        if np.any(red_mask[circle_center[1], circle_center[0]] != 0):
-            colors_under_circles.append("F")
-            color = (0, 0, 255)
-        elif np.any(blue_mask[circle_center[1], circle_center[0]] != 0):
-            colors_under_circles.append("L")
-            color = (255, 0, 0)
-        elif np.any(orange_mask[circle_center[1], circle_center[0]] != 0):
-            colors_under_circles.append("B")
-            color = (0, 165, 255)
-        elif np.any(green_mask[circle_center[1], circle_center[0]] != 0):
-            colors_under_circles.append("R")
-            color = (0, 255, 0)
-        elif np.any(yellow_mask[circle_center[1], circle_center[0]] != 0):
-            colors_under_circles.append("U")
-            color = (0, 255, 255)
-        else:
-            colors_under_circles.append("D")
-            color = (255, 255, 255)
-
-        cv2.circle(frame, circle_center, 10, color, -1)
+            print(filename + ": " + camera + str(colors_under_circles))
 
     # auf True setzen für Debug
     if False:
@@ -120,7 +109,7 @@ def ScanCube(camera):
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
-    print("CubeScanner.py:" + camera + str(colors_under_circles))
+
 
     # auf True setzen für Debug
     if True:

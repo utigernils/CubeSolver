@@ -1,9 +1,17 @@
 import Main as app
 import numpy as np
 
+app.web_folder = '../web'
+app.initial_window_size = (1200, 800)
+app.thread_running = False
+
 app.MotorCom = "COM5"
 app.MachineCom = "COM2"
+app.cube.activeCamera = "camera1"
 app.CheckRate = "1"
+
+app.selftestState = "Noch kein Selbsttest durchgeführt."
+app.calibrationState = "Noch keine Kalibration durchgeführt."
 
 app.standard_IdleColor = "rgb(20, 100, 255)"
 app.standard_ScanColor = "rgb(255, 255, 255)"
@@ -49,20 +57,17 @@ app.upper_green = np.array([86, 175, 153])
 app.lower_yellow = np.array([17, 136, 137])
 app.upper_yellow = np.array([90, 216, 203])
 
-app.mi.serial_port = app.MotorCom
+app.motor.serial_port = app.MotorCom
 
-app.cs.camera1 = cv2.VideoCapture(1)
-app.cs.camera2 = cv2.VideoCapture(2)
-
-app.cs.lower_red = np.array([0, 93, 50])
-app.cs.upper_red = np.array([8, 209, 153])
-app.cs.lower_blue = np.array([78, 99, 76])
-upper_blue = np.array([146, 176, 162])
-app.cs.lower_orange = np.array([6, 99, 133])
-app.cs.upper_orange = np.array([12, 194, 187])
-app.cs.lower_green = np.array([32, 33, 33])
-app.cs.upper_green = np.array([86, 175, 153])
-app.cs.lower_yellow = np.array([17, 136, 137])
-app.cs.upper_yellow = np.array([90, 216, 203])
+app.cube.lower_red = np.array([0, 93, 50])
+app.cube.upper_red = np.array([8, 209, 153])
+app.cube.lower_blue = np.array([78, 99, 76])
+app.cube.upper_blue = np.array([146, 176, 162])
+app.cube.lower_orange = np.array([6, 99, 133])
+app.cube.upper_orange = np.array([12, 194, 187])
+app.cube.lower_green = np.array([32, 33, 33])
+app.cube.upper_green = np.array([86, 175, 153])
+app.cube.lower_yellow = np.array([17, 136, 137])
+app.cube.upper_yellow = np.array([90, 216, 203])
 
 app.Start()

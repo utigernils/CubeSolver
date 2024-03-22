@@ -3,38 +3,19 @@ import re
 import time
 import datetime
 import threading
-import CubeScanner as cs
-import SolveCalculator as sc
-import MotorInterface as mi
+
+import CubeScanner as cube
+import SolveCalculator as solve
+import MotorInterface as motor
 
 filename = "Main.py"
 
-web_folder = '../web'
-initial_window_size = (1200, 800)
-eel.init(web_folder)
-
-print(filename + ": 'eel' imported and initialized.")
-
-thread_running = False
-cs.activeCamera = "camera1"
-
-def run_camera():
-    while thread_running:
-        variable_Upper = "upper_" + CameraMask
-        variable_Lower = "lower_" + CameraMask
-        time.sleep(0.04)
-        eel.refresh_img(cs.getMaskedFrame(globals()[variable_Upper], globals()[variable_Lower], cs.activeCamera))
-
-def run_home():
-    while thread_running:
-        print(filename + ": getting Machine state")
-        time.sleep(float(CheckRate))
-
-def run_solve():
+#Machine actions
+def solveCube():
     eel.UserInfo("Würfel wird gelesen und berechnet. Bitte Seite nicht verlassen!")
 
-    colorArray1 = ''.join(cs.ScanCube("camera1"))
-    colorArray2 = ''.join(cs.ScanCube("camera2"))
+    colorArray1 = ''.join(cube.scan("camera1"))
+    colorArray2 = ''.join(cube.scan("camera2"))
 
     cubestring = colorArray1 + colorArray2
     #solvestring = sc.SolveCube(cubestring)
@@ -67,80 +48,100 @@ def run_solve():
 
         match int(motorMove):
             case 1:
-                mi.moveMotor(motorAdress, 1, 3000, 254, 800)
+                motor.move(motorAdress, 1, 3000, 254, 800)
             case 2:
-                mi.moveMotor(motorAdress, 1, 3000, 254, 1600)
+                motor.move(motorAdress, 1, 3000, 254, 1600)
             case 3:
-                mi.moveMotor(motorAdress, 0, 3000, 254, 800)
+                motor.move(motorAdress, 0, 3000, 254, 800)
 
         time.sleep(0.2)
 
     print('Solve DONE!')
 
-def MachineSelftest():
+def motorTest():
     try:
-        mi.enableMotor('00', True)
+        motor.enable('00', True)
         time.sleep(1)
 
         shortWait = 0.15
         longWait = 0.5
         count = 0
         while count < 5:
-            mi.moveMotor(1, 1, 3000, 254, 1600)
+            motor.move(1, 1, 3000, 254, 1600)
             time.sleep(shortWait)
-            mi.moveMotor(2, 1, 3000, 254, 1600)
+            motor.move(2, 1, 3000, 254, 1600)
             time.sleep(shortWait)
-            mi.moveMotor(3, 1, 3000, 254, 1600)
+            motor.move(3, 1, 3000, 254, 1600)
             time.sleep(shortWait)
-            mi.moveMotor(4, 1, 3000, 254, 1600)
+            motor.move(4, 1, 3000, 254, 1600)
             time.sleep(shortWait)
-            mi.moveMotor(5, 1, 3000, 254, 1600)
+            motor.move(5, 1, 3000, 254, 1600)
             time.sleep(shortWait)
-            mi.moveMotor(6, 1, 3000, 254, 1600)
+            motor.move(6, 1, 3000, 254, 1600)
             time.sleep(longWait)
-            mi.moveMotor(1, 0, 3000, 254, 1600)
+            motor.move(1, 0, 3000, 254, 1600)
             time.sleep(shortWait)
-            mi.moveMotor(2, 0, 3000, 254, 1600)
+            motor.move(2, 0, 3000, 254, 1600)
             time.sleep(shortWait)
-            mi.moveMotor(3, 0, 3000, 254, 1600)
+            motor.move(3, 0, 3000, 254, 1600)
             time.sleep(shortWait)
-            mi.moveMotor(4, 0, 3000, 254, 1600)
+            motor.move(4, 0, 3000, 254, 1600)
             time.sleep(shortWait)
-            mi.moveMotor(5, 0, 3000, 254, 1600)
+            motor.move(5, 0, 3000, 254, 1600)
             time.sleep(shortWait)
-            mi.moveMotor(6, 0, 3000, 254, 1600)
+            motor.move(6, 0, 3000, 254, 1600)
             time.sleep(longWait)
-            mi.moveMotor(0, 0, 3000, 254, 800)
+            motor.move(0, 0, 3000, 254, 800)
             time.sleep(shortWait)
-            mi.moveMotor(0, 1, 3000, 254, 800)
+            motor.move(0, 1, 3000, 254, 800)
             time.sleep(shortWait)
-            mi.moveMotor(0, 0, 3000, 254, 800)
+            motor.move(0, 0, 3000, 254, 800)
             time.sleep(shortWait)
-            mi.moveMotor(0, 1, 3000, 254, 800)
+            motor.move(0, 1, 3000, 254, 800)
             time.sleep(shortWait)
-            mi.moveMotor(0, 0, 3000, 254, 800)
+            motor.move(0, 0, 3000, 254, 800)
             time.sleep(shortWait)
-            mi.moveMotor(0, 1, 3000, 254, 800)
+            motor.move(0, 1, 3000, 254, 800)
             time.sleep(longWait)
             count += 1
 
             time.sleep(1)
-            mi.enableMotor('00', False)
+            motor.enable('00', False)
     except:
         print("MotorInterface: Invalid com Port")
         eel.UserInfo("MotorInterface Error: Wrong com Port")
 
-def start_thread(function):
+def motorCalibration():
+    motor.calibrate('00')
+
+#Thread routines
+def dashboardThread():
+    while thread_running:
+        print(filename + ": getting Machine state")
+        eel.UpdateText('selftest-state', selftestState)
+        eel.UpdateText('calibration-state', calibrationState)
+        time.sleep(float(CheckRate))
+
+def cameraThread():
+    while thread_running:
+        variable_Upper = "upper_" + CameraMask
+        variable_Lower = "lower_" + CameraMask
+        time.sleep(0.04)
+        eel.refresh_img(cube.getMaskedFrame(globals()[variable_Upper], globals()[variable_Lower], cube.activeCamera))
+
+#Threading functions
+def startThread(function):
     global thread_running
     thread_running = True
     thread = threading.Thread(target=function)
     thread.start()
 
-def stop_thread():
+def stopThread():
     global thread_running
     thread_running = False
 
-def update_sliders():
+#Ui backbone
+def updateCameraSliders():
     eel.set_camera_Mask_select(CameraMask)
 
     global lower_red, upper_red, lower_blue, upper_blue, lower_orange, upper_orange, lower_green, upper_green,lower_yellow, upper_yellow
@@ -156,13 +157,13 @@ def update_sliders():
     eel.set_camera_LowerSaturation_slider(int(globals()[variable_Lower][1]))
     eel.set_camera_LowerBrightness_slider(int(globals()[variable_Lower][2]))
 
-
 @eel.expose
 def home_loaded():
     print(filename + ": 'home' loaded.")
-    stop_thread()
+
+    stopThread()
     time.sleep(1)
-    start_thread(run_home)
+    startThread(dashboardThread)
 
 @eel.expose
 def home_AutostartOn_btn():
@@ -175,40 +176,39 @@ def home_AutostartOff_btn():
 @eel.expose
 def home_Solve_btn():
     print(filename + ": 'home_Solve' pressed.")
-    run_solve()
-
+    solveCube()
 
 @eel.expose
 def home_SelfTest_btn():
+    global selftestState
     print(filename + ": 'home_SelfTest' pressed.")
 
-    MachineSelftest()
-    current_time = datetime.datetime.now().strftime('%H:%M')  # Get current time
-    eel.UpdateText('selftest-state', 'Letzter Selbsttest: ' + current_time)  # Update text with current time
+    selftestState = "Selbsttest läuft..."
 
+    motorTest()
 
+    selftestState = 'Letzter Selbsttest: ' + datetime.datetime.now().strftime('%H:%M')
 
 @eel.expose
 def home_Calibration_btn():
+    global calibrationState
     print(filename + ": 'home_Calibration' pressed.")
-    try:
-        mi.calibrateMotor('00')
-        current_time = datetime.datetime.now().strftime('%H:%M')  # Get current time
-        eel.UpdateText('calibration-state', 'Letzte kalibrierung: ' + current_time)  # Update text with current time
-    except:
-        print("MotorInterface: Invalid com Port")
-        eel.UserInfo("MotorInterface Error: Wrong com Port")
 
+    calibrationState = "Kalibration läuft..."
 
+    motorCalibration()
+    time.sleep(5)
+
+    calibrationState = 'Letzte Kalibration: ' + datetime.datetime.now().strftime('%H:%M')
 
 #Camera
 @eel.expose
 def camera_loaded():
     print(filename + ": 'camera' loaded.")
-    update_sliders()
-    stop_thread()
+    updateCameraSliders()
+    stopThread()
     time.sleep(1)
-    start_thread(run_camera)
+    startThread(cameraThread)
 
 @eel.expose
 def camera_Reset_btn():
@@ -228,31 +228,30 @@ def camera_Reset_btn():
     globals()[variable_Lower][1] = int(globals()[standard_Lower][1])
     globals()[variable_Lower][2] = int(globals()[standard_Lower][2])
 
-    update_sliders()
+    updateCameraSliders()
 
     print(filename + ": reseted '" + variable_Upper + "' and '" + variable_Lower + "'." )
-
-
 
 @eel.expose
 def camera_Set_btn():
     print(filename + ": 'camera_Set' pressed.")
-    cs.UpdateMasks(lower_red, upper_red, lower_blue, upper_blue, lower_orange, upper_orange, lower_green, upper_green,lower_yellow, upper_yellow)
+    cube.updateMasks(lower_red, upper_red, lower_blue, upper_blue, lower_orange, upper_orange, lower_green, upper_green, lower_yellow, upper_yellow)
 
 @eel.expose
 def camera_SwitchCamera_btn():
     print(filename + ": 'camera_SwitchCamera' pressed.")
-    if cs.activeCamera == "camera1":
-        cs.activeCamera = "camera2"
+    if cube.activeCamera == "camera1":
+        cube.activeCamera = "camera2"
         print(filename + ": switched to Camera2")
     else:
-        cs.activeCamera = "camera1"
+        cube.activeCamera = "camera1"
         print(filename + ": switched to Camera1")
+
 @eel.expose
 def camera_Mask_select(value):
     global CameraMask
     CameraMask = value
-    update_sliders()
+    updateCameraSliders()
     print(filename + ": 'camera_Mask' selected '" + value + "'.")
 
 @eel.expose
@@ -431,7 +430,7 @@ def settings_loaded():
 def settings_MotorCom_select(value):
     global MotorCom
     MotorCom = value
-    mi.serial_port = value
+    motor.serial_port = value
     print(filename + ": 'settings_MotorCom' selected '" + value + "'.")
 
 @eel.expose
@@ -451,8 +450,9 @@ def settings_Save_btn():
     print(filename + ": 'settings_Save' pressed.")
 
 def Start():
-    print(filename + ": 'eel' started.")
+    eel.init(web_folder)
     eel.start('index.html', size=initial_window_size, port=8000, mode='chrome', root=web_folder)
+    print(filename + ": 'eel' started.")
 
 
 

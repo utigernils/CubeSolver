@@ -1,4 +1,3 @@
 import optimal.solver as sv
-
-def SolveCube(cubestring):
+def calculate(cubestring):
     return sv.solve(cubestring)
