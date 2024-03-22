@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cube Solver - Einstellungen</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  </head>
+  <body>
+    <script type="text/javascript" src="eel.js"></script>
+    <script type="text/javascript" src="Bridges/BridgeSettings.js"></script>
+    <div class="sidenav">
+        <button onclick="window.location.href = 'index.html'" class="navButton"><i class="fas fa-home"></i></button>
+        <button onclick="window.location.href = 'camera.html'"class="navButton"><i class="fas fa-camera"></i></button>
+        <button onclick="window.location.href = 'lights.html'" class="navButton"><i class="fas fa-lightbulb"></i></button>
+        <button onclick="window.location.href = 'settings.html'" id="selected"  class="navButton"><i class="fas fa-cog"></i></button>
+    </div>
+    <div class="main">  
+      <div class="contenBox">
+        <h1>Verbindungseinstellungen</h1>
+        <div class="settings">
+          <div class="atribute">
+            <p>Motor Schnittstelle</p>
+            <select name="motor-comport" id="MotorCom">
+              <option value="COM1">COM 1</option>
+              <option value="COM2">COM 2</option>
+              <option value="COM3">COM 3</option>
+              <option value="COM4">COM 4</option>
+              <option value="COM5">COM 5</option>
+              <option value="COM6">COM 6</option>
+              <option value="COM7">COM 7</option>
+              <option value="COM8">COM 8</option>
+              
+            </select>
+          </div>
+          <div class="atribute">
+            <p>Maschinen Schnittstelle</p>
+            <select name="machine-comport" id="MachineCom">
+              <option value="COM1">COM 1</option>
+              <option value="COM2">COM 2</option>
+              <option value="COM3">COM 3</option>
+              <option value="COM4">COM 4</option>
+              <option value="COM5">COM 5</option>
+              <option value="COM6">COM 6</option>
+              <option value="COM7">COM 7</option>
+              <option value="COM8">COM 8</option>
+            </select>
+          </div>
+          <div class="atribute">
+            <p>Serielle Abtastrate (nicht Baudrate)</p>
+            <select name="refresh-rate" id="CheckRate">
+              <option value="0.1">0.1 s</option>
+              <option value="0.5">0.5 s</option>
+              <option value="1">1 s</option>
+              <option value="3">3 s</option>
+              <option value="5">5 s</option>
+              <option value="10">10 s</option>
+            </select>
+          </div>
+              
+
+        </div>
+        <div class="selectors">
+          <button id="Save" class="button">Setzen</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

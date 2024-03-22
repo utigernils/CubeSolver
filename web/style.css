@@ -1,0 +1,166 @@
+body {
+  font-family: monospace;
+  background-image: url(background.jpg);
+  background-size: cover;
+  display: flex;
+  color: white;
+  margin: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sidenav {
+  background-color: #2b344c;
+  height: 100vh;
+  width: 3vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  font-family: monospace;
+  background-color: rgb(37 45 59);
+  border-style: none;
+  color: WHITE;
+  border-radius: 15px;
+  padding: 2vh;
+  margin-left: 1vh;
+}
+
+.button:hover {
+  background-color: rgb(57, 69, 90);
+}
+
+.navButton {
+  height: 10%;
+  color: WHITE;
+  background-color: rgb(37 45 59);
+  border-style: none;
+  margin-top: 1.5vh;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.navButton:hover,
+#selected {
+  background-color: rgb(57, 69, 90);
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 95vw;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  overflow: hidden; /* Add overflow hidden to prevent scrollbar during animation */
+  opacity: 0; /* Set initial opacity to 0 */
+  animation: fadeIn 0.33s ease-in-out forwards;
+}
+
+.contenBox {
+  padding: 2%;
+  width: 40%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #2b344c75;
+  box-shadow: 10px 10px 15px #2b344c75;
+  backdrop-filter: blur(0px);
+  animation: blurIn 0.3s ease-in-out 0.3s forwards;
+}
+
+@keyframes blurIn {
+  from {
+    backdrop-filter: blur(0);
+  }
+  to {
+    backdrop-filter: blur(8px);
+  }
+}
+
+.selectors {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+input {
+  font-family: monospace;
+  background-color: rgb(37 45 59);
+  border-style: none;
+  color: WHITE;
+  border-radius: 15px;
+  padding: 2vh;
+}
+
+.info button {
+ border-radius: 15px;
+}
+
+.atribute {
+ display: flex;
+ flex-direction: column;  
+ margin-bottom: 2vh;
+ height: 100%;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+}
+
+label {
+  margin-bottom: 1vh;
+}
+
+select {
+  font-family: monospace;
+  background-color: rgb(37 45 59);
+  border-style: none;
+  color: WHITE;
+  border-radius: 15px;
+  padding: 2vh;
+} 
+
+.state-red {
+  width: 90%;
+  height: 1vh;
+  background-color: red;
+  border-style: none;
+}
+
+img {
+  border-radius: 15px;
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  color: WHITE;
+  background-color: rgb(37 45 59);
+  width: 90%;
+  padding: 0%;
+}
+
+input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 50px;
+  border-radius: 15px;
+  background: rgb(57, 69, 90);
+  cursor: pointer;
+}
+

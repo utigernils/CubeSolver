@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cube Solver - Kamera kalibration</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+    <script type="text/javascript" src="eel.js"></script>
+    <script type="text/javascript" src="Bridges/BridgeCamera.js"></script>
+    <div class="sidenav">
+      <button onclick="window.location.href = 'index.html'" class="navButton">
+        <i class="fas fa-home"></i>
+      </button>
+      <button
+        onclick="window.location.href = 'camera.html'"
+        id="selected"
+        a
+        class="navButton"
+      >
+        <i class="fas fa-camera"></i>
+      </button>
+      <button onclick="window.location.href = 'lights.html'" class="navButton">
+        <i class="fas fa-lightbulb"></i>
+      </button>
+      <button
+        onclick="window.location.href = 'settings.html'"
+        class="navButton"
+      >
+        <i class="fas fa-cog"></i>
+      </button>
+    </div>
+    <div class="main">
+      <div class="contenBox" style="height: 80%">
+        <h1>Vorschau</h1>
+        <div class="info">
+          <img alt="Kamera wird geladen..." id="cameraImage" src="" >
+        </div>
+      </div>
+      <div class="contenBox" style="height: 80%">
+        <h1>Farbmasken Einstellungen</h1>
+        <div class="info">
+          <div style="width: 100%; padding-bottom: 5%">
+            <h2>Obere Grenze</h2>
+            <p>Farbton</p>
+            <input
+              type="range"
+              id="UpperHue"
+              min="0"
+              max="255"
+              value="50"
+              class="slider"
+            />
+            <p>Sätigung</p>
+            <input
+              type="range"
+              id="UpperSaturation"
+              msin="0"
+              max="255"
+              value="50"
+              class="slider"
+            />
+            <p>Helligkeit</p>
+            <input
+              type="range"
+              id="UpperBrightness"
+              min="0"
+              max="255"
+              value="50"
+              class="slider"
+            />
+          </div>
+          <div style="width: 100%">
+            <h2>Untere Grenze</h2>
+            <p>Farbton</p>
+            <input
+              type="range"
+              id="LowerHue"
+              min="0"
+              max="255"
+              value="50"
+              class="slider"
+            />
+            <p>Sätigung</p>
+            <input
+              type="range"
+              id="LowerSaturation"
+              min="0"
+              max="255"
+              value="50"
+              class="slider"
+            />
+            <p>Helligkeit</p>
+            <input
+              type="range"
+              id="LowerBrightness"
+              min="0"
+              max="255"
+              value="50"
+              class="slider"
+            />
+          </div>
+        </div>
+        <div class="info">
+          <select style="width: 100%;" name="mask-selector" id="Mask">
+            <option value="red">Rote Maske</option>
+            <option value="orange">Orange Maske</option>
+            <option value="yellow">Gelbe Maske</option>
+            <option value="green">Grüne Maske</option>
+            <option value="blue">Blaue Maske</option>
+          </select>
+        </div>
+        <div class="selectors">
+          <button id="Reset" class="button" onclick="">Zurücksetzen</button>
+          <button id="Set" class="button">Setzen</button>
+          <button id="SwitchCamera" class="button">
+            Kamera wechseln
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

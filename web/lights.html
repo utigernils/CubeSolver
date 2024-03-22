@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cube Solver - Licht</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="coloris.css" />
+  </head>
+  <body>
+    <script type="text/javascript" src="eel.js"></script>
+    <script type="text/javascript" src="Bridges/BridgeLights.js"></script>
+    <div class="sidenav">
+      <button onclick="window.location.href = 'index.html'" class="navButton">
+        <i class="fas fa-home"></i>
+      </button>
+      <button onclick="window.location.href = 'camera.html'" class="navButton">
+        <i class="fas fa-camera"></i>
+      </button>
+      <button
+        onclick="window.location.href = 'lights.html'"
+        id="selected"
+        class="navButton"
+      >
+        <i class="fas fa-lightbulb"></i>
+      </button>
+      <button
+        onclick="window.location.href = 'settings.html'"
+        class="navButton"
+      >
+        <i class="fas fa-cog"></i>
+      </button>
+    </div>
+    <div class="main">
+      <div class="contenBox">
+        <h1>Licht - idle</h1>
+        <div class="info">
+            <div class="atribute">
+              <h2>Farbe</h2>
+                <input
+                type="text"
+                id="ColorIdle"
+                class="coloris instance0"
+                value="rgb(255, 0, 0)"
+              />
+              </div>
+            <div class="atribute">
+              <h2>Ainmation</h2>
+              <select name="AnimationIdle" id="AnimationIdle">
+                <option value="static">Statisch (keine)</option>
+                <option value="chase">Kreisen</option>
+                <option value="blink">Blinken</option>
+                <option value="glow">Glühen</option>
+              </select>
+            </div>
+        </div>
+        <div class="selectors">
+          <button id="ResetIdle" class="button">Zurücksetzen</button>
+          <button id="SetIdle" class="button">Setzen</button>
+        </div>
+      </div>
+      <div class="contenBox">
+        <h1>Licht - einscannen</h1>
+        <div class="info">
+            <div class="atribute">
+              <h2>Farbe</h2>
+                <input
+                type="text"
+                id="ColorScanning"
+                class="coloris instance0"
+                value="rgb(255, 0, 0)"
+              />
+              </div>
+            <div class="atribute">
+              <h2>Ainmation</h2>
+              <select name="AnimationScanning" id="AnimationScanning">
+                <option value="static">Statisch (keine)</option>
+                <option value="chase">Kreisen</option>
+                <option value="blink">Blinken</option>
+                <option value="glow">Glühen</option>
+              </select>
+            </div>
+        </div>
+        <div class="selectors">
+          <button id="ResetScanning" class="button">Zurücksetzen</button>
+          <button id="SetScanning" class="button">Setzen</button>
+        </div>
+      </div>
+      <div class="contenBox">
+        <h1>Licht - lösen</h1>
+        <div class="info">
+            <div class="atribute">
+              <h2>Farbe</h2>
+                <input
+                type="text"
+                id="ColorSolve"
+                class="coloris instance0"
+                value="rgb(255, 0, 0)"
+              />
+              </div>
+            <div class="atribute">
+              <h2>Ainmation</h2>
+              <select name="AnimationSolving" id="AnimationSolving">
+                <option value="static">Statisch (keine)</option>
+                <option value="chase">Kreisen</option>
+                <option value="blink">Blinken</option>
+                <option value="glow">Glühen</option>
+              </select>
+            </div>
+        </div>
+        <div class="selectors">
+          <button id="ResetSolving" class="button">Zurücksetzen</button>
+          <button id="SetSolving" class="button">Setzen</button>
+        </div>
+      </div>
+      <div class="contenBox">
+        <h1>Licht - fertig</h1>
+        <div class="info">
+            <div class="atribute">
+                <h2>Farbe</h2>
+                <input
+                type="text"
+                id="ColorDone"
+                class="coloris instance0"
+                value="rgb(255, 0, 0)"
+              />
+              </div>
+            <div class="atribute">
+                <h2>Ainmation</h2>
+
+              <select name="AnimationDone" id="AnimationDone">
+                <option value="static">Statisch (keine)</option>
+                <option value="chase">Kreisen</option>
+                <option value="blink">Blinken</option>
+                <option value="glow">Glühen</option>
+              </select>
+            </div>
+        </div>
+        <div class="selectors">
+          <button id="ResetDone" class="button">Zurücksetzen</button>
+          <button id="SetDone" class="button">Setzen</button>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="coloris.min.js"></script>
+    <script type="text/javascript">
+      Coloris({
+        el: ".coloris",
+        swatches: [
+          "#264653",
+          "#2a9d8f",
+          "#e9c46a",
+          "#f4a261",
+          "#e76f51",
+          "#d62828",
+          "#023e8a",
+          "#0077b6",
+          "#0096c7",
+          "#00b4d8",
+          "#48cae4",
+        ],
+      });
+
+      Coloris.setInstance(".instance0", {
+        format: "rgb",
+        theme: "large",
+        themeMode: "dark",
+        closeButton: false,
+        clearButton: false,
+        alpha: false,
+        formatToggle: false,
+        swatches: [
+          "#067bc2",
+          "#84bcda",
+          "#80e377",
+          "#ecc30b",
+          "#f37748",
+          "#d56062",
+        ],
+      });
+
+
+    </script>
+  </body>
+</html>
