@@ -1,4 +1,5 @@
 import eel
+import re
 import time
 import datetime
 import threading
@@ -6,7 +7,7 @@ import CubeScanner as cs
 import SolveCalculator as sc
 import MotorInterface as mi
 
-filename = "UserInterface.py"
+filename = "Main.py"
 
 web_folder = '../web'
 initial_window_size = (1200, 800)
@@ -24,11 +25,6 @@ def run_camera():
         time.sleep(0.04)
         eel.refresh_img(cs.getMaskedFrame(globals()[variable_Upper], globals()[variable_Lower], cs.activeCamera))
 
-
-def init_Motors():
-    global MotorCom
-    mi.serial_port = MotorCom
-
 def run_home():
     while thread_running:
         print(filename + ": getting Machine state")
@@ -41,30 +37,98 @@ def run_solve():
     colorArray2 = ''.join(cs.ScanCube("camera2"))
 
     cubestring = colorArray1 + colorArray2
-    solvestring = sc.SolveCube(cubestring)
+    #solvestring = sc.SolveCube(cubestring)
 
-    MotorInstructions = m.GenerateInstructions(solvestring)
-    for Instruction in MotorInstructions:
-        mi.SendSerial(MotorCom, Instruction)
+    solvestring = 'U3 R2 B2 U2 B3 D3 L1 D1 L2 U2 D2 R3 U1 D1 R3 D1 B3 U1 (18f*)'
 
+    print(filename + ": generatet solve: " + solvestring)
+
+    solve = solvestring.split(" (")[0].split()
+
+    for instruction in solve:
+        print(instruction)
+
+        motorAdress = re.split(r'\d+', instruction)[0]
+        motorMove = instruction.split(motorAdress)[1]
+
+        match motorAdress:
+            case 'D':
+                motorAdress = 1
+            case 'L':
+                motorAdress = 2
+            case 'B':
+                motorAdress = 3
+            case 'R':
+                motorAdress = 4
+            case 'F':
+                motorAdress = 5
+            case 'U':
+                motorAdress = 6
+
+        match int(motorMove):
+            case 1:
+                mi.moveMotor(motorAdress, 1, 3000, 254, 800)
+            case 2:
+                mi.moveMotor(motorAdress, 1, 3000, 254, 1600)
+            case 3:
+                mi.moveMotor(motorAdress, 0, 3000, 254, 800)
+
+        time.sleep(0.2)
+
+    print('Solve DONE!')
 
 def MachineSelftest():
-    mi.enableMotor('00')
-    mi.moveMotor(0, 1, 3000, 240, 3200)
-    time.sleep(1)
-    mi.moveMotor(1, 0, 3000, 240, 3200)
-    time.sleep(1)
-    mi.moveMotor(2, 0, 3000, 240, 3200)
-    time.sleep(1)
-    mi.moveMotor(3, 0, 3000, 240, 3200)
-    time.sleep(1)
-    mi.moveMotor(4, 0, 3000, 240, 3200)
-    time.sleep(1)
-    mi.moveMotor(5, 0, 3000, 240, 3200)
-    time.sleep(1)
-    mi.moveMotor(6, 0, 3000, 240, 3200)
-    time.sleep(1)
-    eel.UserInfo("Selftest Completed!")
+    try:
+        mi.enableMotor('00', True)
+        time.sleep(1)
+
+        shortWait = 0.15
+        longWait = 0.5
+        count = 0
+        while count < 5:
+            mi.moveMotor(1, 1, 3000, 254, 1600)
+            time.sleep(shortWait)
+            mi.moveMotor(2, 1, 3000, 254, 1600)
+            time.sleep(shortWait)
+            mi.moveMotor(3, 1, 3000, 254, 1600)
+            time.sleep(shortWait)
+            mi.moveMotor(4, 1, 3000, 254, 1600)
+            time.sleep(shortWait)
+            mi.moveMotor(5, 1, 3000, 254, 1600)
+            time.sleep(shortWait)
+            mi.moveMotor(6, 1, 3000, 254, 1600)
+            time.sleep(longWait)
+            mi.moveMotor(1, 0, 3000, 254, 1600)
+            time.sleep(shortWait)
+            mi.moveMotor(2, 0, 3000, 254, 1600)
+            time.sleep(shortWait)
+            mi.moveMotor(3, 0, 3000, 254, 1600)
+            time.sleep(shortWait)
+            mi.moveMotor(4, 0, 3000, 254, 1600)
+            time.sleep(shortWait)
+            mi.moveMotor(5, 0, 3000, 254, 1600)
+            time.sleep(shortWait)
+            mi.moveMotor(6, 0, 3000, 254, 1600)
+            time.sleep(longWait)
+            mi.moveMotor(0, 0, 3000, 254, 800)
+            time.sleep(shortWait)
+            mi.moveMotor(0, 1, 3000, 254, 800)
+            time.sleep(shortWait)
+            mi.moveMotor(0, 0, 3000, 254, 800)
+            time.sleep(shortWait)
+            mi.moveMotor(0, 1, 3000, 254, 800)
+            time.sleep(shortWait)
+            mi.moveMotor(0, 0, 3000, 254, 800)
+            time.sleep(shortWait)
+            mi.moveMotor(0, 1, 3000, 254, 800)
+            time.sleep(longWait)
+            count += 1
+
+            time.sleep(1)
+            mi.enableMotor('00', False)
+    except:
+        print("MotorInterface: Invalid com Port")
+        eel.UserInfo("MotorInterface Error: Wrong com Port")
 
 def start_thread(function):
     global thread_running
@@ -98,7 +162,6 @@ def home_loaded():
     print(filename + ": 'home' loaded.")
     stop_thread()
     time.sleep(1)
-    init_Motors()
     start_thread(run_home)
 
 @eel.expose
@@ -118,13 +181,11 @@ def home_Solve_btn():
 @eel.expose
 def home_SelfTest_btn():
     print(filename + ": 'home_SelfTest' pressed.")
-    try:
 
-        current_time = datetime.datetime.now().strftime('%H:%M')  # Get current time
-        eel.UpdateText('selftest-state', 'Letzter Selbsttest: ' + current_time)  # Update text with current time
-    except:
-        print("MotorInterface: Invalid com Port")
-        eel.UserInfo("MotorInterface Error: Wrong com Port")
+    MachineSelftest()
+    current_time = datetime.datetime.now().strftime('%H:%M')  # Get current time
+    eel.UpdateText('selftest-state', 'Letzter Selbsttest: ' + current_time)  # Update text with current time
+
 
 
 @eel.expose
