@@ -9,7 +9,7 @@
   </head>
   <body>
     <script type="text/javascript" src="eel.js"></script>
-    <script type="text/javascript" src="gateway.js"></script>
+    <script type="text/javascript" src="Bridges/BridgeHome.js"></script>
     <div class="sidenav">
         <button onclick="window.location.href = 'index.html'" id="selected" class="navButton"><i class="fas fa-home"></i></button>
         <button onclick="window.location.href = 'camera.html'" class="navButton"><i class="fas fa-camera"></i></button>
@@ -28,9 +28,9 @@
                 
             </div>
             <div class="selectors">
-                <button class="button">Autostart ein</button>
-                <button class="button">Autostart aus</button>
-                <button class="button">Lösen</button>
+                <button id="AutostartOn" class="button">Autostart ein</button>
+                <button id="AutostartOff" class="button">Autostart aus</button>
+                <button id="Solve" class="button">Lösen</button>
             </div>
         </div>
         <div class="contenBox">
@@ -91,7 +91,7 @@
                 <p id="selftest-state">Letzter Selbsttest: -</p>
             </div>
             <div class="selectors">
-                <button class="button">Selbsttest starten</button>
+                <button id="SelfTest" class="button">Selbsttest starten</button>
             </div>
         </div>
         <div class="contenBox">
@@ -101,7 +101,7 @@
                 <p id="calibration-state">Letzte kalibrierung: -</p>
             </div>
             <div class="selectors">
-                <button class="button">Motoren kalibrieren</button>
+                <button id="Calibration" class="button">Motoren kalibrieren</button>
             </div>
         </div>
     </div>
