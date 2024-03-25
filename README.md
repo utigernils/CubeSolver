@@ -1,1 +1,1 @@
-No readme yet
+A simple open source cube solving robot. Uploading CAD files soon.
