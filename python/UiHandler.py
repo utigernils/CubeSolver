@@ -1,0 +1,1 @@
+#Moving Ui stuff from ApplicationCore.py to here

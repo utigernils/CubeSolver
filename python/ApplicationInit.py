@@ -1,4 +1,4 @@
-import Main as app
+import ApplicationCore as app
 import numpy as np
 
 app.web_folder = '../web'
