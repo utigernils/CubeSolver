@@ -7,6 +7,7 @@ import threading
 import CubeScanner as cube
 import MotorInterface as motor
 import SolveCalculator as solver
+import UiHandler as Ui
 
 filename = "Main.py"
 
